@@ -29,7 +29,7 @@ RUN apk add --no-cache \
     rm -rf Bento4-1.6.0-639 v1.6.0-639.zip
 
 # Install Python dependencies
-RUN pip3 install --no-cache-dir --upgrade pip \
+RUN pip3 install --no-cache-dir --upgrade pip setuptools wheel \
     && pip3 install --no-cache-dir --upgrade -r sainibots.txt \
     && python3 -m pip install -U yt-dlp
 
