@@ -967,9 +967,37 @@ def reset_and_set_commands():
 
 
 
+from aiohttp import web
+
+async def health(request):
+    return web.Response(text="OK")
+
+async def start_webserver():
+    app = web.Application()
+    app.router.add_get("/", health)
+
+    port = int(os.environ.get("PORT", 8000))
+
+    runner = web.AppRunner(app)
+    await runner.setup()
+
+    site = web.TCPSite(runner, "0.0.0.0", port)
+    await site.start()
+
+async def main():
+    await start_webserver()
+
+    try:
+        reset_and_set_commands()
+    except Exception as e:
+        print(f"Command setup error: {e}")
+
+    await bot.start()
+
+    print("✅ Bot Started Successfully")
+
+    while True:
+        await asyncio.sleep(3600)
+
 if __name__ == "__main__":
-    reset_and_set_commands()
-    notify_owner() 
-
-
-bot.run()
+    asyncio.run(main())
