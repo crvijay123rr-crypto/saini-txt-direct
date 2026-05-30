@@ -4,17 +4,7 @@ WORKDIR /app
 
 COPY . .
 
-RUN apk add --no-cache 
-gcc 
-libffi-dev 
-musl-dev 
-ffmpeg 
-aria2 
-make 
-g++ 
-cmake 
-wget 
-unzip
+RUN apk add --no-cache gcc libffi-dev musl-dev ffmpeg aria2 make g++ cmake wget unzip
 
 RUN wget -q https://github.com/axiomatic-systems/Bento4/archive/v1.6.0-639.zip && 
 unzip v1.6.0-639.zip && 
